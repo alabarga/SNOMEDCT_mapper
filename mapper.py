@@ -1,10 +1,3 @@
-# This class allows matching of terms to a lexicon
-# For example, initialize an object like this:
-# >>> phrase = Phrase('Advil is indicated for headaches')
-# You can then apply methods to match the object against the standard lexicon
-# of SNOMED terms. For example, phrase.standard_search() returns a df of all matches
-# To access the matches, use phrase.matches
-
 import pandas as pd
 from fuzzywuzzy import process, fuzz
 from read_snomed import load_lexicon
@@ -20,7 +13,7 @@ USE_REMOVE = True # Sets if the fuzzy search removes terms as it finds them
 STANDARD_LEXICON = "disorders" # Sets the standard subset of the SNOMED database to use
 #---------------------------------------------------------------------------------------------
 
-class Phrase:
+class Mapper:
     def __init__(self, text, lexicon = STANDARD_LEXICON):
         self.text = sanatize(text)
         self.original_text = text # We leave this unmodified by other functions
