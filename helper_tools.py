@@ -45,3 +45,22 @@ def get_tuple(term,tup_list):
     # Returns the tuple matching the 1st item
     tup_list = [x for x in tup_list if x[0] == term]
     return(tup_list)
+
+def remove_words(string, remove_string_or_list):
+    """
+    Removes the strings in remove_string_or_list from string
+    Input: (string, string or list of strings)
+    Output: string
+    """
+    str_list = string.split(' ')
+    if isinstance(remove_string_or_list, str):
+        str_list = [word for word in str_list if word != remove_string_or_list]
+    elif remove_string_or_list and all(isinstance(s, str) for s in remove_string_or_list):
+        str_list = [word for word in str_list if word not in remove_string_or_list]
+    else:
+        raise ValueError('Input was not a string or a list of strings')
+
+    cleaned_str = ' '.join(str_list)
+    assert(isinstance(cleaned_str, str))
+    return(' '.join(str_list))
+
