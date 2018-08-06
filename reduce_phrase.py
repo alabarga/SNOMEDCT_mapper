@@ -1,16 +1,9 @@
 import spacy
-from helper_tools import sanatize
+from helper_tools import sanatize, get_words_from_csv
 import csv
 from mapper import Mapper
 
 nlp = spacy.load('en_core_web_lg')
-
-def get_words_from_csv(filename):
-    with open(filename, 'r') as f:
-      reader = csv.reader(f)
-      word_list = list(reader)
-      word_list = [x[0] for x in word_list]
-      return(word_list)
 
 remove_list = get_words_from_csv('remove_list.csv')
 stopwords = get_words_from_csv('stopwords.csv')

@@ -1,7 +1,7 @@
 import pandas as pd
 from fuzzywuzzy import process, fuzz
 from read_snomed import load_lexicon
-from helper_tools import ngrams, sanatize, get_tuple, flatten, group, remove_words
+from helper_tools import ngrams, sanatize, get_tuple, flatten, group
 from collections import namedtuple
 
 #---------------------------------------------------------------------------------------------
@@ -151,6 +151,7 @@ class Mapper:
                 s = df.Term.str.len().sort_values(ascending=False).index
                 df = df.reindex(s)
                 df.reset_index(inplace=True, drop=True)
+                df = df.drop_duplicates(['ID'], keep='first')
                 return(df)
             else:
                 return(pd.DataFrame([])) # Return an empty DataFrame

@@ -1,5 +1,6 @@
 # A collection of helpful tools I tend to need in these scripts
 import collections
+import csv
 
 def group(lst, n):
     # Group items in a list into tuples of size 'n'
@@ -63,3 +64,10 @@ def remove_words(string, remove_string_or_list):
     cleaned_str = ' '.join(str_list)
     assert(isinstance(cleaned_str, str))
     return(' '.join(str_list))
+
+def get_words_from_csv(filename):
+    with open(filename, 'r') as f:
+      reader = csv.reader(f)
+      word_list = list(reader)
+      word_list = [x[0] for x in word_list]
+      return(word_list)
