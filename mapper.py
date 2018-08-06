@@ -1,12 +1,12 @@
 import pandas as pd
 from fuzzywuzzy import process, fuzz
 from read_snomed import load_lexicon
-from helper_tools import ngrams, sanatize, get_tuple, flatten, group
+from helper_tools import ngrams, sanatize, get_tuple, flatten, group, remove_words
 from collections import namedtuple
 
 #---------------------------------------------------------------------------------------------
 # GLOBAL PARAMETERS
-SCORER_LIMIT = 84 # Sets the sensitivity of the FuzzyWuzzy matcher (Lower = more false positives)
+SCORER_LIMIT = 87 # Sets the sensitivity of the FuzzyWuzzy matcher (Lower = more false positives)
 MAX_NGRAM_SIZE = 6 # Sets the maximum ngram size tested (Higher = slower)
 MAX_DISTANCE = 8 # Sets the maximum length difference possible for a match (Higher = slower)
 USE_REMOVE = True # Sets if the fuzzy search removes terms as it finds them
@@ -21,13 +21,15 @@ class Mapper:
         self.matches = set() # Matched ID's are added here
         self.matches_w_score = set() # For debugging and sorting
 
+    @property
+    def codes(self):
+        return(x.code for x in self.matches)
+
     def __str__(self):
-        return(f'''Original text is: "{self.original_text}"
-        Current text is: "{self.text}" ''')
+        return(f"Original text is: {self.original_text}\nCurrent text is: {self.text}")
 
     def __repr__(self):
-        return(f'''Original text is: "{self.original_text}"
-        Current text is: "{self.text}" ''')
+        return(f"Original text is: {self.original_text}\nCurrent text is: {self.text}")
 
     def remove(self,string):
         # Removes the string from self.text
@@ -43,18 +45,15 @@ class Mapper:
         # get the maximum ngram size needed
         length = self.get_num_words()
         if length < MAX_NGRAM_SIZE:
-            max_ngram = length
-            return(max_ngram)
+            return(length)
         else:
-            max_ngram = MAX_NGRAM_SIZE
-            return(max_ngram)
+            return(MAX_NGRAM_SIZE)
 
     def cut_lexicon(self, query):
         # Returns a lexicon that is cut down to words within max_distance of the query
-        distance = MAX_DISTANCE
         length  = len(query)
-        upper = length + distance
-        lower = length - distance
+        upper = length + MAX_DISTANCE
+        lower = length - MAX_DISTANCE
         reduced_lexicon = [syn for syn in self.lexicon if lower <= len(syn.term) <= upper]
         return(reduced_lexicon)
 
@@ -164,6 +163,7 @@ class Mapper:
         return(self.to_df(show_scores))
 
     def rapid_search(self):
+        # Acronym search + exact search
         self.acronym_search()
         self.exact_search()
         return(self.to_df())

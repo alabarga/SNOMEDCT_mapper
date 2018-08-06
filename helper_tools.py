@@ -63,4 +63,3 @@ def remove_words(string, remove_string_or_list):
     cleaned_str = ' '.join(str_list)
     assert(isinstance(cleaned_str, str))
     return(' '.join(str_list))
-

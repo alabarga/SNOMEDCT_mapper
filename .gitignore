@@ -8,6 +8,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
+filter.py
 build/
 develop-eggs/
 dist/
