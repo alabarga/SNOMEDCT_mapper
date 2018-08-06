@@ -2,7 +2,12 @@ from helper_tools import sanatize, remove_words, get_words_from_csv
 import spacy
 nlp = spacy.load('en_core_web_lg')
 
-def reduce_string(string):
+def clean_input(string):
+    '''
+    Reduces the input string to the essential words needed for SNOMED CT matching
+    Returns `str`
+    '''
+
     # Sanatize the string
     string = sanatize(string)
 

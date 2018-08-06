@@ -18,9 +18,11 @@ def csv_to_tup_list(filename):
 
 def load_lexicon(lexicon_name):
     # Loads a SNOMED lexicon and returns the data as a list of tuples
+    extra_terms = csv_to_tup_list(data_folder / 'extra_terms.csv')
+
     names = ['full', 'my_acronyms', 'findings', 'disorders']
     if lexicon_name not in names:
         raise ValueError('Invalid lexicon name provided!')
     filename = lexicon_name + '.csv'
-    lexicon = csv_to_tup_list(data_folder / filename)
+    lexicon = csv_to_tup_list(data_folder / filename) + extra_terms
     return(lexicon)
