@@ -8,5 +8,3 @@ def test_clean_input():
 
     test_text = 'Schizophrenia and lung CanCeR treatment'
     assert(clean_input(test_text) == 'schizophrenia lung cancer')
-
-    
