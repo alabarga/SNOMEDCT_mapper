@@ -16,7 +16,7 @@ def clean_input(string):
 
     # Remove dictionary words not in SNOMED CT
     doc = nlp(string)
-    dict_remove_strings = set(get_words_from_csv('dict_remove_strings.csv'))
+    dict_remove_strings = set(get_words_from_csv('dict_remove_strings_recommended.csv'))
     string = ' '.join([x.text for x in doc if x.lemma_ not in dict_remove_strings])
 
     # Remove curated words

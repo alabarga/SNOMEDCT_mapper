@@ -10,7 +10,7 @@ SCORER_LIMIT = 87 # Sets the sensitivity of the FuzzyWuzzy matcher (Lower = more
 MAX_NGRAM_SIZE = 6 # Sets the maximum ngram size tested (Higher = slower)
 MAX_DISTANCE = 8 # Sets the maximum length difference possible for a match (Higher = slower)
 USE_REMOVE = True # Sets if the fuzzy search removes terms as it finds them
-STANDARD_LEXICON = "disorders" # Sets the standard subset of the SNOMED database to use
+STANDARD_LEXICON = "recommended" # Sets the standard subset of the SNOMED database to use
 #---------------------------------------------------------------------------------------------
 
 class Mapper:
